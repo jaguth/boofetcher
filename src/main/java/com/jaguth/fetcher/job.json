@@ -1,0 +1,26 @@
+{
+  "jobName" : "zelda",
+  "ownerName" : "jaguth@gmail.com",
+  "fetcher" :
+  {
+    "@type" : "TwitterFetcher",
+    "dataStore" : null,
+    "setOAuthConsumerKey" : "",
+    "setOAuthConsumerSecret" : "",
+    "setOAuthAccessToken" : "",
+    "setOAuthAccessTokenSecret" : "",
+    "query" : "Majora's Mask 3DS",
+    "querySince" : null,
+    "queryUntil" : null,
+    "pageSize" : null,
+    "maxMessageCount" : null,
+    "fetchPastMessages" : true,
+    "fetchStreamingMessages" : true
+  },
+  "dataStore" :
+  {
+    "@type" : "ElasticSearchDataStore",
+    "uri" : "http://localhost:9200/",
+    "indexName" : "zelda"
+  }
+}
