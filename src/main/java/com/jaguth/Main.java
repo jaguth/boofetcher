@@ -1,12 +1,14 @@
 package com.jaguth;
 
-import com.jaguth.fetcher.FetcherManager;
-
 public class Main
 {
     public static void main(String[] args)
     {
         FetcherManager fetcherManager = new FetcherManager();
-        fetcherManager.Run();
+
+        String[] test = new String[] {"job.json"};
+
+        if (fetcherManager.ParseArgs(test))
+            fetcherManager.Run();
     }
 }

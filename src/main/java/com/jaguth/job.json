@@ -1,0 +1,25 @@
+{
+  "jobName" : "zelda_majoras_mask",
+  "ownerName" : "jaguth@gmail.com",
+  "query" : "\"ムジュラの仮面\" OR \"Majora's Mask\" OR \"قناع ماجورا\" OR \"무쥬라의 가면\" OR \"穆修拉的假面\"",
+  "fetchers" :[
+    {
+      "type" : "TwitterFetcher",
+      "oAuthConsumerKey" : "",
+      "oAuthConsumerSecret" : "",
+      "oAuthAccessToken" : "",
+      "oAuthAccessTokenSecret" : "",
+      "querySince" : null,
+      "queryUntil" : null,
+      "fetchPastMessages" : true,
+      "fetchStreamingMessages" : true,
+      "dataStores": [
+        {
+          "type" : "ElasticSearchDataStore",
+          "index" : "zelda_majoras_mask",
+          "uri" : "http://localhost:9200/",
+        }
+      ]
+    }
+  ]
+}

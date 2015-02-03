@@ -1,4 +1,4 @@
-package com.jaguth.fetcher;
+package com.jaguth.boofetcher;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -13,15 +13,15 @@ import twitter4j.conf.*;
 
 public class TwitterFetcher implements iFetcher, Runnable
 {
-    private String oAuthConsumerKey;
-    private String oAuthConsumerSecret;
-    private String oAuthAccessToken;
-    private String oAuthAccessTokenSecret;
-    private String query;
+    public String oAuthConsumerKey;
+    public String oAuthConsumerSecret;
+    public String oAuthAccessToken;
+    public String oAuthAccessTokenSecret;
+    public String query;
 
-    private Date querySince;
-    private Date queryUntil;
-    private iDataStore[] dataStores;
+    public Date querySince;
+    public Date queryUntil;
+    public iDataStore[] dataStores;
 
     private static int pageSize = 100; // max twitter items per page is 100
     private static int chunckSize = 1000; // save fetched items every 500 items
@@ -47,8 +47,7 @@ public class TwitterFetcher implements iFetcher, Runnable
         Date querySince,
         Date queryUntil,
         boolean fetchPastMessages,
-        boolean fetchStreamingMessages,
-        iDataStore[] dataStores
+        boolean fetchStreamingMessages
     )
     {
         this.query = query;
@@ -60,7 +59,6 @@ public class TwitterFetcher implements iFetcher, Runnable
         this.queryUntil = queryUntil;
         this.fetchPastMessage = fetchPastMessages;
         this.fetchStreamingMessages = fetchStreamingMessages;
-        this.dataStores = dataStores;
 
         twitterClientInitiated = false;
         twitterStreamClientInitiated = false;
