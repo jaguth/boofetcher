@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/DataFetcher.iml" filepath="$PROJECT_DIR$/DataFetcher.iml" />
+      <module fileurl="file://$PROJECT_DIR$/boofetcher.iml" filepath="$PROJECT_DIR$/boofetcher.iml" />
     </modules>
   </component>
 </project>

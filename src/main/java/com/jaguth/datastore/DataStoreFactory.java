@@ -12,10 +12,9 @@ public class DataStoreFactory
         {
             case "ElasticSearchDataStore":
             {
-                String uri = obj.getString("type");
-                String index = obj.getString("index");
-
-                return new ElasticSearchDataStore(uri, index);
+                ElasticSearchDataStore elasticSearchDataStore = new ElasticSearchDataStore();
+                elasticSearchDataStore.Initialize(obj);
+                return elasticSearchDataStore;
             }
             default:
                 throw new DataStoreException(String.format("DataStoreFactory Error: The data store '%1$s' is not implemented.", dataStoreType));

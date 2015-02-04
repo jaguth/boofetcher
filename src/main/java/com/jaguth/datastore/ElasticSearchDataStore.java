@@ -19,6 +19,7 @@ import org.elasticsearch.common.unit.TimeValue;
 import org.elasticsearch.common.xcontent.XContentBuilder;
 import org.elasticsearch.common.xcontent.XContentFactory;
 import org.elasticsearch.discovery.MasterNotDiscoveredException;
+import org.json.JSONObject;
 
 import java.util.List;
 import java.util.Objects;
@@ -33,15 +34,18 @@ public class ElasticSearchDataStore implements iDataStore
 
     private String typeName = "tweet";
 
-    public ElasticSearchDataStore(String uri,
-                                  String indexName)
+    public ElasticSearchDataStore()
     {
-        this.uri = uri;
-        this.indexName = indexName;
         dataStoreReady = false;
     }
 
-    public void InitDataStore()
+    public void Initialize(JSONObject obj)
+    {
+        this.uri = obj.getString("type");
+        this.indexName  = obj.getString("index");
+    }
+
+    public void Start()
     {
         if (dataStoreReady)
             return;
@@ -214,7 +218,7 @@ public class ElasticSearchDataStore implements iDataStore
 
     public void InsertBulkData(List<Message> messages)
     {
-        InitDataStore();
+        Start();
 
         if (messages == null || messages.size() == 0)
             throw new DataStoreException("ElasticSearchDataStore Error: messages is null or empty");

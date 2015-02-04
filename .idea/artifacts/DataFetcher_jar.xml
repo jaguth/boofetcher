@@ -2,7 +2,7 @@
   <artifact type="jar" name="DataFetcher:jar">
     <output-path>$PROJECT_DIR$/out/artifacts/DataFetcher_jar</output-path>
     <root id="archive" name="DataFetcher.jar">
-      <element id="module-output" name="DataFetcher" />
+      <element id="module-output" name="boofetcher" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/twitter4j/twitter4j-stream/4.0.2/twitter4j-stream-4.0.2.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$APPLICATION_HOME_DIR$/lib/junit.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/fasterxml/jackson/core/jackson-annotations/2.5.0/jackson-annotations-2.5.0.jar" path-in-jar="/" />

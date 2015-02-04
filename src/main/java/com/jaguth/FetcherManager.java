@@ -65,13 +65,12 @@ public class FetcherManager
 
             job.jobName = obj.getString("jobName");
             job.ownerName = obj.getString("ownerName");
-            job.query = obj.getString("query");
 
             JSONArray fetcherArray = obj.getJSONArray("fetchers");
             job.fetchers = new iFetcher[fetcherArray.length()];
 
             for (int i = 0; i < fetcherArray.length(); i++)
-                job.fetchers[i] = FetcherFactory.GetFetcher(job.query, fetcherArray.getJSONObject(i));
+                job.fetchers[i] = FetcherFactory.GetFetcher(fetcherArray.getJSONObject(i));
 
             return job;
         }

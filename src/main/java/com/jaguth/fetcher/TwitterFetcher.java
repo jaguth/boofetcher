@@ -5,9 +5,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.jaguth.datastore.DataStoreFactory;
 import com.jaguth.models.Message;
 import com.jaguth.datastore.iDataStore;
 import com.jaguth.util.LogUtil;
+import org.json.*;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import twitter4j.*;
 import twitter4j.conf.*;
 
@@ -38,32 +42,41 @@ public class TwitterFetcher implements iFetcher, Runnable
 
     private Thread t;
 
-    public TwitterFetcher(
-        String query,
-        String oAuthConsumerKey,
-        String oAuthConsumerSecret,
-        String oAuthAccessToken,
-        String oAuthAccessTokenSecret,
-        Date querySince,
-        Date queryUntil,
-        boolean fetchPastMessages,
-        boolean fetchStreamingMessages,
-        iDataStore[] dataStores
-    )
+    public TwitterFetcher()
     {
-        this.query = query;
-        this.oAuthConsumerKey = oAuthConsumerKey;
-        this.oAuthConsumerSecret = oAuthConsumerSecret;
-        this.oAuthAccessToken = oAuthAccessToken;
-        this.oAuthAccessTokenSecret = oAuthAccessTokenSecret;
-        this.querySince = querySince;
-        this.queryUntil = queryUntil;
-        this.fetchPastMessage = fetchPastMessages;
-        this.fetchStreamingMessages = fetchStreamingMessages;
-        this.dataStores = dataStores;
-
         twitterClientInitiated = false;
         twitterStreamClientInitiated = false;
+    }
+
+    public void Initialize(JSONObject obj)
+    {
+        this.query = obj.getString("query");
+        this.oAuthConsumerKey = obj.getString("oAuthConsumerKey");
+        this.oAuthConsumerSecret = obj.getString("oAuthConsumerSecret");
+        this.oAuthAccessToken = obj.getString("oAuthAccessToken");
+        this.oAuthAccessTokenSecret = obj.getString("oAuthAccessTokenSecret");
+
+        SimpleDateFormat formatter = new SimpleDateFormat(shortDateFormat);
+
+        try
+        {
+            this.querySince = obj.isNull("querySince") ? null : formatter.parse(obj.getString("querySince"));
+            this.queryUntil = obj.isNull("queryUntil") ? null : formatter.parse(obj.getString("queryUntil"));
+        }
+        catch (Exception e)
+        {
+            LogUtil.Log(String.format("TwitterFetcher failed to parse querySince or queryUntil dates: %1$s", e.toString()));
+            throw new FetcherException(e.toString());
+        }
+
+        this.fetchPastMessage = obj.getBoolean("fetchPastMessages");
+        this.fetchStreamingMessages = obj.getBoolean("fetchStreamingMessages");
+
+        JSONArray dataStoreArray = obj.getJSONArray("dataStores");
+        this.dataStores = new iDataStore[dataStoreArray.length()];
+
+        for (int i = 0; i < dataStoreArray.length(); i++)
+            this.dataStores[i] = DataStoreFactory.GetDataStore(dataStoreArray.getJSONObject(i));
     }
 
     public void BeginFetching()
